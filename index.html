@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>  
+<head>
 
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Code Breaking Game</title>  
+    <title>Code Breaking Game</title>
     
     <style>
 
         /* ===== ANIMATIONS ===== */
+
+        /* Explosion animation - particles expanding outward */
         @keyframes explode {
             0% { opacity: 0; transform: scale(0.1); }
             50% { opacity: 1; }
             100% { opacity: 0; transform: scale(3); }
         }
-    
+
+        /* Fade-in effect for elements */
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-    
+
+        /* Pulsing effect for buttons and interactive elements */
         @keyframes pulse {
             0% { transform: scale(1); }
             100% { transform: scale(1.05); }
@@ -30,7 +34,9 @@
 
 
 
+
         /* ===== BASE STYLES ===== */
+
         body {
             /* Layout & Box Model */
             display: flex;
@@ -49,10 +55,12 @@
         }
     
         h1 {
+            /* Layout & Box Model */
             margin-top: 35px;
         }
     
         input {
+            /* Layout & Box Model */
             margin: 10px 0;
             padding: 8px;
             width: 200px;
@@ -74,6 +82,7 @@
         }
     
         button:hover {
+            /* Visual */
             background-color: #45a049;
         }
     
@@ -82,7 +91,9 @@
 
 
         /* ===== GAME CONTENT ===== */
+
         .game-content {
+            /* Layout & Box Model */
             display: none;
             min-height: 100vh;
             padding-top: 20px;
@@ -94,6 +105,7 @@
 
 
         /* ===== START MENU ===== */
+
         .start-menu {
             /* Layout & Box Model */
             align-items: center;
@@ -137,7 +149,7 @@
     
         .start-content button {
             /* Layout & Box Model */
-            font-size: 1.4em;
+            font-size: 1.8em;
             padding: 15px 40px;
             
             /* Visual */
@@ -150,12 +162,131 @@
             background-color: #45a049;
             transform: scale(1.05);
         }
+
+
+
+
+
+        /* ===== END GAME SCREEN ===== */
+
+        .end-content {
+            /* Layout & Box Model */
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            
+            /* Visual */
+            animation: fadeIn 3s ease;
+        }
+
+        .end-content h1 {
+            /* Typography */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .trophy {
+            /* Typography */
+            font-size: 5em;
+            margin: 20px 0;
+            
+            /* Visual */
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        .end-content p {
+            /* Typography */
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .end-buttons {
+            /* Layout & Box Model */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .end-buttons button {
+            /* Layout & Box Model */
+            padding: 5px 12px;
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
+
+            /* Typography */
+            font-size: 1.5em;
+            
+            /* Visual */
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .end-buttons button:hover {
+            /* Visual */
+            transform: scale(1.05);
+        }
+
+        .credits {
+            /* Layout & Box Model */
+            margin-top: 40px;
+            display: none;
+            
+            /* Visual */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .credit-role {
+            /* Typography */
+            font-size: 0.9em;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        .credit-name {
+            /* Typography */
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+
+        .credit-date {
+            /* Typography */
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        .medal-img {
+            width: 150px;
+            height: auto;
+            animation: inherit;
+        }
+
+        .credit-name a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .credit-name a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .credit-name a {
+            color: #8bc34a;
+        }
+
+        .credit-date {
+            /* Typography */
+            margin-top: 20px;
+            font-size: 1em;
+        }
     
 
 
 
 
         /* ===== PUZZLES ===== */
+
         .puzzle-container {
             /* Layout & Box Model */
             flex-grow: 1;
@@ -215,6 +346,7 @@
 
 
         /* ===== HINTS ===== */
+
         .hint {
             /* Layout & Box Model */
             display: none;
@@ -252,6 +384,7 @@
 
 
         /* ===== MENU ===== */
+
         .menu {
             /* Layout & Box Model */
             padding: 20px;
@@ -314,10 +447,10 @@
             left: 10px;
         }
 
-        /* Add this with other menu-button styles */
         .menu-button:active, .menu-button:focus {
-            background-color: rgba(76, 175, 80, 0.9) !important; /* Keep transparency even when active */
-            outline: none; /* Remove focus outline */
+            /* Visual */
+            background-color: rgba(76, 175, 80, 0.9);
+            outline: none;
         }
 
     
@@ -326,6 +459,7 @@
 
 
         /* ===== MESSAGES ===== */
+
         .success-message, .error-message {
             /* Layout & Box Model */
             display: none;
@@ -350,10 +484,12 @@
         }
     
         .success-message {
+            /* Visual */
             background-color: #4CAF50;
         }
     
         .error-message {
+            /* Visual */
             background-color: #f44336;
         }
     
@@ -368,6 +504,7 @@
 
 
         /* ===== FIREWORKS ===== */
+
         .fireworks-container {
             /* Layout & Box Model */
             height: 100%;
@@ -403,6 +540,7 @@
 
 
         /* ===== CHEAT SHEETS (COMMON) ===== */
+
         .cheat-sheet {
             /* Layout & Box Model */
             display: none;
@@ -424,8 +562,8 @@
             max-height: 80vh;
             max-width: fit-content;
             min-width: 300px;
-            overflow: visible !important;
-            overflow-y: auto !important;
+            overflow: visible;
+            overflow-y: auto;
             padding: 20px;
             text-align: center;
             width: auto;
@@ -461,6 +599,7 @@
 
 
         /* ===== MORSE CODE CHEAT SHEET ===== */
+
         .morse-grid {
             /* Layout & Box Model */
             display: grid;
@@ -523,6 +662,7 @@
 
 
         /* ===== BINARY CODE CHEAT SHEET ===== */
+
         .binary-grid {
             /* Layout & Box Model */
             display: grid;
@@ -585,6 +725,7 @@
 
 
         /* ===== ALPHABET CHEAT SHEET ===== */
+
         .alphabet-grid {
             /* Layout & Box Model */
             display: grid;
@@ -646,6 +787,7 @@
 
         
         /* ===== INFO TOOLTIPS ===== */
+
         .info-container {
             /* Layout & Box Model */
             margin: 0;
@@ -711,6 +853,7 @@
         }
 
         .standalone-tooltip.show {
+            /* Visual */
             display: block;
         }
 
@@ -722,8 +865,7 @@
 
         .info-button:hover {
             /* Visual */
-            background: transparent !important;
-            background-color: transparent !important;
+            background: transparent;
             color: #666;
         }
 
@@ -731,6 +873,7 @@
 
 
         /* ===== CONFIRMATION DIALOG ===== */
+
         .confirmation-content {
             /* Layout & Box Model */
             max-width: 350px;
@@ -783,10 +926,15 @@
             background-color: #616161;
         }
 
+        #confirmationDialog {
+            z-index: 2000;
+        }
+
 
 
 
         /* ===== DARK MODE ===== */
+
         body.dark-mode {
             /* Visual */
             background-color: #222;
@@ -870,11 +1018,6 @@
             border-top-color: #444;
         }
 
-        body.dark-mode .menu-button {
-            /* Visual */
-            background-color: #4CAF50;
-        }
-
         body.dark-mode .menu-separator {
             /* Visual */
             background-color: #555;
@@ -882,8 +1025,6 @@
 
         body.dark-mode .info-button:hover {
             /* Visual */
-            background: transparent !important;
-            background-color: transparent !important;
             color: #fff;
         }
 
@@ -897,39 +1038,47 @@
 
 
         /* ===== RESPONSIVE DESIGN ===== */
+
         @media screen and (min-height: 700px) {
             /* For taller screens like desktops/PCs */
             .puzzle-container {
-                min-height: 60vh; /* Make puzzles take up more vertical space */
-                padding: 30px; /* Increase padding for more breathing room */
-                margin-bottom: 30px; /* Add more space at bottom */
+                /* Layout & Box Model */
+                min-height: 60vh;
+                padding: 30px;
+                margin-bottom: 30px;
             }
-    
+
             body {
-                min-height: 100vh; /* Use full viewport height */
+                /* Layout & Box Model */
+                min-height: 100vh;
             }
             
             .game-content {
+                /* Layout & Box Model */
                 min-height: 100vh;
                 padding-top: 30px;
-                padding-bottom: 50px; /* Add padding at bottom */
+                padding-bottom: 50px;
             }
         }
 
         @media screen and (max-width: 768px) {
-            /* Create space for the fixed menu button */
+
             #gameContent {
-                padding-top: 60px; /* Add more padding at the top on mobile */
+                /* Layout & Box Model */
+                padding-top: 60px;
             }
             
-            /* Give the menu button a semi-transparent background */
             .menu-button {
-                background-color: rgba(76, 175, 80, 0.9); /* Slightly transparent */
+                /* Positioning */
+                z-index: 200;
+
+                /* Visual */
+                background-color: rgba(76, 175, 80, 0.9);
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-                z-index: 200; /* Ensure it's above content */
             }
             
             body.dark-mode .menu-button {
+                /* Visual */
                 background-color: rgba(76, 175, 80, 0.9);
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
             }
@@ -963,11 +1112,41 @@
 
     <div id="startMenu" class="start-menu">
         <div class="start-content">
-            <h1>Code Breaking Game</h1>
-            <p>Test your code cracking skills with 10 challenging puzzles</p>
-            <button id="startButton" onclick="startGame()">Start Game</button>
+            <h1> Code Breaking Game </h1>
+            <p> Test your code cracking skills with 10 challenging puzzles </p>
+            <button id="startButton" onclick="startGame()"> Start Game </button>
         </div>
     </div>
+
+    <!-- ===== END GAME SCREEN ===== -->
+
+    <div id="endGameScreen" class="start-menu" style="display: none;">
+        <div class="end-content">
+            <h1> Code Breaking Game Completed! </h1>
+            <div class="trophy"> 
+                <img src="images/end-screen-medal.png" alt="Achievement Medal" class="medal-img" >
+            </div>
+            <p> You've successfully solved all 10 puzzles! </p>
+            <div class="end-buttons">
+                <button id="backToPuzzles" onclick="backToPuzzles()"> Back to Puzzles </button>
+                <button id="endGameReset" onclick="resetProgressFromEndScreen()"> Play Again </button>
+                <button id="showCredits" onclick="toggleCredits()"> Credits </button>
+            </div>
+            <div id="credits" class="credits">
+                <p> Code Breaking Game </p>
+                <p class="credit-role"> Game Design & Development </p>
+                <p class="credit-name"> Sheer1_Clone </p>
+                <p class="credit-role"> Medal Image </p>
+                <p class="credit-name">
+                    <a href="https://www.flaticon.com/free-icons/medal" title="medal icon" target="_blank" rel="noopener">
+                        Created by setiawanap - Flaticon
+                    </a>
+                </p>
+                <p class="credit-date"> © 2025 </p>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -975,232 +1154,255 @@
     <!-- ===== MAIN GAME CONTENT ===== -->
 
     <div id="gameContent" class="game-content">
-        <h1>Code Breaking Game</h1> 
+        <h1> Code Breaking Game </h1> 
     
         <!-- Menu Button and Menu -->
-        <button class="menu-button" onclick="toggleMenu()">Menu</button>
+        <button class="menu-button" onclick="toggleMenu()"> Menu </button>
         <div class="menu" id="menu">
-            <button onclick="toggleCheatSheet('morseCheatSheet')">Morse Code</button>
-            <button onclick="toggleCheatSheet('binaryCheatSheet')">Binary Code</button>
-            <button onclick="toggleCheatSheet('alphabetCheatSheet')">Alphabet</button>
+            <button onclick="toggleCheatSheet('morseCheatSheet')"> Morse Code </button>
+            <button onclick="toggleCheatSheet('binaryCheatSheet')"> Binary Code </button>
+            <button onclick="toggleCheatSheet('alphabetCheatSheet')"> Alphabet </button>
             <hr class="menu-separator">
-            <button onclick="toggleDarkMode()" id="darkModeButton">Light Mode</button>
+            <button onclick="toggleDarkMode()" id="darkModeButton"> Light Mode </button>
             <hr class="menu-separator">
-            <button onclick="resetProgress()">Reset Progress</button>
+            <button onclick="resetProgress()"> Reset Progress </button>
         </div>
     
         <!-- Progress Tracker -->
-        <div class="progress">  
-            Puzzle: <span id="currentPuzzle">1</span>/10 | Solved: <span id="solvedCount">0</span>  
+        <div class="progress">
+            Puzzle: <span id="currentPuzzle"> 1 </span>/10 | Solved: <span id="solvedCount"> 0 </span>
         </div>
         
         <!-- Message and Effects Containers -->
         <div class="fireworks-container" id="fireworksContainer"></div>
-        <div class="success-message" id="successMessage">Great job! Puzzle solved!</div>  
-        <div class="error-message" id="errorMessage">Incorrect answer. Try again!</div>
+        <div class="success-message" id="successMessage"> Great job! Puzzle solved! </div>  
+        <div class="error-message" id="errorMessage"> Incorrect answer. Try again! </div>
         
+
 
 
 
         <!-- ===== PUZZLES ===== -->
 
         <div class="puzzle-container">  
-            <!-- Puzzle 1 -->
+            <!-- Puzzle 1: Anagram -->
             <div class="puzzle active" id="puzzle1">  
-                <h2>Puzzle 1: Caesar Cipher</h2>  
-                <p>Decode this message where each letter is replaced by the next letter in the alphabet:</p>  
-                <p><strong>GDKKN</strong></p>  
+                <h2> Puzzle 1: Anagram </h2>  
+                <p> Rearrange these letters to form a word: </p>  
+                <p><strong> EARDM </strong></p>  
                 <input type="text" id="answer1" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(1)">Submit</button>  
-                <div class="hint-block" onclick="showHint(1)">Hint</div>
-                <div class="hint" id="hint1">If B becomes C, what would C become?</div>  
+                <button onclick="checkAnswer(1)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(1)"> Hint </div>
+                <div class="hint" id="hint1"> Something you do at night. </div>  
             </div>  
 
-            <!-- Puzzle 2 -->
+
+
+            <!-- Puzzle 2: Caesar Cipher 1 -->
             <div class="puzzle" id="puzzle2">  
-                <h2>Puzzle 2: Numbers To Letters</h2>  
-                <p>Convert these numbers to letters following their positions in the alphabet:</p>  
-                <p><strong>3 &nbsp; 15 &nbsp; 4 &nbsp; 5</strong></p>  
+                <h2> Puzzle 2: Caesar Cipher </h2>  
+                <p> Replace each letter with the next letter in the alphabet: </p>  
+                <p><strong> GDKKN </strong></p>  
                 <input type="text" id="answer2" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(2)">Submit</button>  
-                <div class="hint-block" onclick="showHint(2)">Hint</div>
-                <div class="hint" id="hint2"> (1 = A, 2 = B)</div>  
+                <button onclick="checkAnswer(2)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(2)"> Hint </div>
+                <div class="hint" id="hint2"> A = B, B = C, etc. </div>  
             </div>  
 
-            <!-- Puzzle 3 -->
+
+
+            <!-- Puzzle 3: Numbers To Letters -->
             <div class="puzzle" id="puzzle3">  
-                <h2>Puzzle 3: Reverse Alphabet</h2>  
-                <p>Decode this message using the reverse of the alphabet:</p>  
-                <p><strong>HVXIVG</strong></p>  
+                <h2> Puzzle 3: Numbers To Letters </h2>  
+                <p> Convert these numbers to letters following their positions in the alphabet: </p>  
+                <p><strong> 3 &nbsp; 15 &nbsp; 4 &nbsp; 5 </strong></p>  
                 <input type="text" id="answer3" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(3)">Submit</button>  
-                <div class="hint-block" onclick="showHint(3)">Hint</div>
-                <div class="hint" id="hint3"> (A = Z, B = Y)</div>
+                <button onclick="checkAnswer(3)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(3)"> Hint </div>
+                <div class="hint" id="hint3"> 1 = A, 2 = B, etc. </div>  
             </div>  
 
-            <!-- Puzzle 4 -->
+
+
+            <!-- Puzzle 4: Caesar Cipher 2 -->
             <div class="puzzle" id="puzzle4">  
-                <h2>Puzzle 4: Binary to Text</h2>  
-                <p>Convert this binary code to text:</p>  
-                <p><strong>01110000 01110101 01111010 01111010 01101100 01100101</strong></p>  
+                <h2> Puzzle 4: Caesar Cipher 2 </h2>  
+                <p> Replace each letter with the letter that's 3 positions backwards in the alphabet: </p>  
+                <p><strong> VLPSOH </strong></p>  
                 <input type="text" id="answer4" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(4)">Submit</button>  
-                <div class="hint-block" onclick="showHint(4)">Hint</div>
-                <div class="hint" id="hint4">Each 8-bit binary sequence represents a letter.</div>  
+                <button onclick="checkAnswer(4)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(4)"> Hint </div>
+                <div class="hint" id="hint4"> A = X, B = Y, etc. </div>  
             </div>  
 
-            <!-- Puzzle 5 -->
+
+
+            <!-- Puzzle 5: Missing Letter -->
             <div class="puzzle" id="puzzle5">  
-                <h2>Puzzle 5: Anagram</h2>  
-                <p>Rearrange these letters to form a word:</p>  
-                <p><strong>EARDM</strong></p>  
+                <h2> Puzzle 5: Missing Letter </h2>  
+                <p> What letter completes this sequence? </p>  
+                <p><strong> A, E, I, M, ? </strong></p>  
                 <input type="text" id="answer5" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(5)">Submit</button>  
-                <div class="hint-block" onclick="showHint(5)">Hint</div>
-                <div class="hint" id="hint5">Something you do at night.</div>  
+                <button onclick="checkAnswer(5)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(5)"> Hint </div>
+                <div class="hint" id="hint5"> Count the positions in the alphabet. </div>  
             </div>  
 
-            <!-- Puzzle 6 -->
+
+
+            <!-- Puzzle 6: Caesar Cipher 3 -->
             <div class="puzzle" id="puzzle6">  
-                <h2>Puzzle 6: Missing Letter</h2>  
-                <p>What letter completes this sequence?</p>  
-                <p><strong>A, E, I, M, ?</strong></p>  
+                <h2> Puzzle 6: Caesar Cipher 3 </h2>  
+                <p> Replace each letter with the letter that's 5 positions backwards in the alphabet: </p>  
+                <p><strong> IJHNUMJW </strong></p>  
                 <input type="text" id="answer6" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(6)">Submit</button>  
-                <div class="hint-block" onclick="showHint(6)">Hint</div>
-                <div class="hint" id="hint6">Count the positions in the alphabet.</div>  
+                <button onclick="checkAnswer(6)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(6)"> Hint </div>
+                <div class="hint" id="hint6"> A = V, B = W, etc. </div>  
             </div>  
 
-            <!-- Puzzle 7 -->
+
+
+            <!-- Puzzle 7: Morse Code -->
             <div class="puzzle" id="puzzle7">  
-                <h2>Puzzle 7: Caesar Cipher 2</h2>  
-                <p>Shift each letter by 3 positions backward:</p>  
-                <p><strong>VLPSOH</strong></p>  
+                <h2> Puzzle 7: Morse Code </h2>  
+                <p> Decode this Morse code: </p>  
+                <p><strong> .-.. &nbsp; --- &nbsp; -.-. &nbsp; -.- &nbsp; . &nbsp; .-. </strong></p>  
                 <input type="text" id="answer7" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(7)">Submit</button>  
-                <div class="hint-block" onclick="showHint(7)">Hint</div>
-                <div class="hint" id="hint7">(A = X, B = Y)</div>  
+                <button onclick="checkAnswer(7)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(7)"> Hint </div>
+                <div class="hint" id="hint7"> Each letter is made of both dots (.) and dashes (-). </div>  
             </div>  
 
-            <!-- Puzzle 8 -->
+
+
+            <!-- Puzzle 8: Word Math -->
             <div class="puzzle" id="puzzle8">  
-                <h2>Puzzle 8: Morse Code</h2>  
-                <p>Decode this Morse code:</p>  
-                <p><strong>.-.. &nbsp; --- &nbsp; -.-. &nbsp; -.-</strong></p>  
+                <h2> Puzzle 8: Word Math </h2>  
+                <p> What does CHERRY equal? </p>  
+                <p><strong> APPLE = 50, BANANA = 33, CHERRY = ? </strong></p>  
                 <input type="text" id="answer8" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(8)">Submit</button>  
-                <div class="hint-block" onclick="showHint(8)">Hint</div>
-                <div class="hint" id="hint8">Each letter is made of both dots (.) and dashes (-).</div>  
+                <button onclick="checkAnswer(8)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(8)"> Hint </div>
+                <div class="hint" id="hint8"> Each letter has a value based on its position in the alphabet. </div>  
             </div>  
 
-            <!-- Puzzle 9 -->
+
+
+            <!-- Puzzle 9: Binary to Text -->
             <div class="puzzle" id="puzzle9">  
-                <h2>Puzzle 9: Word Math</h2>  
-                <p>what does CHERRY equal?</p>  
-                <p><strong>APPLE = 50, BANANA = 33, CHERRY = ?</strong></p>  
+                <h2> Puzzle 9: Binary to Text </h2>  
+                <p> Convert this binary code to text: </p>  
+                <p><strong> 01110000 &nbsp; 01110101 &nbsp; 01111010 &nbsp; 01111010 &nbsp; 01101100 &nbsp; 01100101 </strong></p>  
                 <input type="text" id="answer9" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(9)">Submit</button>  
-                <div class="hint-block" onclick="showHint(9)">Hint</div>
-                <div class="hint" id="hint9">Each letter has a value based on its position in the alphabet.</div>  
+                <button onclick="checkAnswer(9)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(9)"> Hint </div>
+                <div class="hint" id="hint9"> Each 8-bit binary sequence represents a letter. </div>  
             </div>  
 
-            <!-- Puzzle 10 -->
+
+
+            <!-- Puzzle 10: Reverse Alphabet -->
             <div class="puzzle" id="puzzle10">  
-                <h2>Puzzle 10: Caesar Cipher 3</h2>  
-                <p>Shift each letter by 1 position forward:</p>  
-                <p><strong>GZUD</strong></p>  
+                <h2> Puzzle 10: Reverse Alphabet </h2>  
+                <p> Substitute each letter with its opposite in the reverse alphabet: </p>  
+                <p><strong> HVXIVG </strong></p>  
                 <input type="text" id="answer10" placeholder="Enter your answer">  
-                <button onclick="checkAnswer(10)">Submit</button>  
-                <div class="hint-block" onclick="showHint(10)">Hint</div>
-                <div class="hint" id="hint10">If B becomes C, what would C become?</div>  
+                <button onclick="checkAnswer(10)"> Submit </button>  
+                <div class="hint-block" onclick="showHint(10)"> Hint </div>
+                <div class="hint" id="hint10"> A = Z, B = Y, etc. </div>
             </div>
-        </div>
-        
+        </div>        
+
+
 
 
 
         <!-- ===== NAVIGATION ===== -->
+
         <div class="navigation-buttons"> 
-            <button id="prevButton" onclick="navigatePuzzle(-1)">Back</button>  
-            <button id="nextButton" onclick="navigatePuzzle(1)">Next</button>  
+            <button id="prevButton" onclick="navigatePuzzle(-1)"> Back </button>  
+            <button id="nextButton" onclick="navigatePuzzle(1)"> Next </button>  
         </div>  
     </div>
     
 
 
 
+
     <!-- ===== REFERENCE SHEETS ===== -->
+
     <!-- Morse Code Reference -->
     <div id="morseCheatSheet" class="cheat-sheet">
         <div class="cheat-sheet-content">
-            <span class="close-button" onclick="toggleCheatSheet('morseCheatSheet')">&times;</span>
-            <h2>Morse Code</h2>
+            <span class="close-button" onclick="toggleCheatSheet('morseCheatSheet')"> &times; </span>
+            <h2> Morse Code </h2>
             <div class="morse-grid">
-                <div class="morse-item"><strong>A</strong><span class="morse-arrow">=</span><span class="morse-code">.-</span></div>
-                <div class="morse-item"><strong>B</strong><span class="morse-arrow">=</span><span class="morse-code">-...</span></div>
-                <div class="morse-item"><strong>C</strong><span class="morse-arrow">=</span><span class="morse-code">-.-.</span></div>
-                <div class="morse-item"><strong>D</strong><span class="morse-arrow">=</span><span class="morse-code">-..</span></div>
-                <div class="morse-item"><strong>E</strong><span class="morse-arrow">=</span><span class="morse-code">.</span></div>
-                <div class="morse-item"><strong>F</strong><span class="morse-arrow">=</span><span class="morse-code">..-.</span></div>
-                <div class="morse-item"><strong>G</strong><span class="morse-arrow">=</span><span class="morse-code">--.</span></div>
-                <div class="morse-item"><strong>H</strong><span class="morse-arrow">=</span><span class="morse-code">....</span></div>
-                <div class="morse-item"><strong>I</strong><span class="morse-arrow">=</span><span class="morse-code">..</span></div>
-                <div class="morse-item"><strong>J</strong><span class="morse-arrow">=</span><span class="morse-code">.---</span></div>
-                <div class="morse-item"><strong>K</strong><span class="morse-arrow">=</span><span class="morse-code">-.-</span></div>
-                <div class="morse-item"><strong>L</strong><span class="morse-arrow">=</span><span class="morse-code">.-..</span></div>
-                <div class="morse-item"><strong>M</strong><span class="morse-arrow">=</span><span class="morse-code">--</span></div>
-                <div class="morse-item"><strong>N</strong><span class="morse-arrow">=</span><span class="morse-code">-.</span></div>
-                <div class="morse-item"><strong>O</strong><span class="morse-arrow">=</span><span class="morse-code">---</span></div>
-                <div class="morse-item"><strong>P</strong><span class="morse-arrow">=</span><span class="morse-code">.--.</span></div>
-                <div class="morse-item"><strong>Q</strong><span class="morse-arrow">=</span><span class="morse-code">--.-</span></div>
-                <div class="morse-item"><strong>R</strong><span class="morse-arrow">=</span><span class="morse-code">.-.</span></div>
-                <div class="morse-item"><strong>S</strong><span class="morse-arrow">=</span><span class="morse-code">...</span></div>
-                <div class="morse-item"><strong>T</strong><span class="morse-arrow">=</span><span class="morse-code">-</span></div>
-                <div class="morse-item"><strong>U</strong><span class="morse-arrow">=</span><span class="morse-code">..-</span></div>
-                <div class="morse-item"><strong>V</strong><span class="morse-arrow">=</span><span class="morse-code">...-</span></div>
-                <div class="morse-item"><strong>W</strong><span class="morse-arrow">=</span><span class="morse-code">.--</span></div>
-                <div class="morse-item"><strong>X</strong><span class="morse-arrow">=</span><span class="morse-code">-..-</span></div>
-                <div class="morse-item"><strong>Y</strong><span class="morse-arrow">=</span><span class="morse-code">-.--</span></div>
-                <div class="morse-item"><strong>Z</strong><span class="morse-arrow">=</span><span class="morse-code">--..</span></div>
+                <div class="morse-item"><strong> A </strong><span class="morse-arrow"> = </span><span class="morse-code"> .-   </span></div>
+                <div class="morse-item"><strong> B </strong><span class="morse-arrow"> = </span><span class="morse-code"> -... </span></div>
+                <div class="morse-item"><strong> C </strong><span class="morse-arrow"> = </span><span class="morse-code"> -.-. </span></div>
+                <div class="morse-item"><strong> D </strong><span class="morse-arrow"> = </span><span class="morse-code"> -..  </span></div>
+                <div class="morse-item"><strong> E </strong><span class="morse-arrow"> = </span><span class="morse-code"> .    </span></div>
+                <div class="morse-item"><strong> F </strong><span class="morse-arrow"> = </span><span class="morse-code"> ..-. </span></div>
+                <div class="morse-item"><strong> G </strong><span class="morse-arrow"> = </span><span class="morse-code"> --.  </span></div>
+                <div class="morse-item"><strong> H </strong><span class="morse-arrow"> = </span><span class="morse-code"> .... </span></div>
+                <div class="morse-item"><strong> I </strong><span class="morse-arrow"> = </span><span class="morse-code"> ..   </span></div>
+                <div class="morse-item"><strong> J </strong><span class="morse-arrow"> = </span><span class="morse-code"> .--- </span></div>
+                <div class="morse-item"><strong> K </strong><span class="morse-arrow"> = </span><span class="morse-code"> -.-  </span></div>
+                <div class="morse-item"><strong> L </strong><span class="morse-arrow"> = </span><span class="morse-code"> .-.. </span></div>
+                <div class="morse-item"><strong> M </strong><span class="morse-arrow"> = </span><span class="morse-code"> --   </span></div>
+                <div class="morse-item"><strong> N </strong><span class="morse-arrow"> = </span><span class="morse-code"> -.   </span></div>
+                <div class="morse-item"><strong> O </strong><span class="morse-arrow"> = </span><span class="morse-code"> ---  </span></div>
+                <div class="morse-item"><strong> P </strong><span class="morse-arrow"> = </span><span class="morse-code"> .--. </span></div>
+                <div class="morse-item"><strong> Q </strong><span class="morse-arrow"> = </span><span class="morse-code"> --.- </span></div>
+                <div class="morse-item"><strong> R </strong><span class="morse-arrow"> = </span><span class="morse-code"> .-.  </span></div>
+                <div class="morse-item"><strong> S </strong><span class="morse-arrow"> = </span><span class="morse-code"> ...  </span></div>
+                <div class="morse-item"><strong> T </strong><span class="morse-arrow"> = </span><span class="morse-code"> -    </span></div>
+                <div class="morse-item"><strong> U </strong><span class="morse-arrow"> = </span><span class="morse-code"> ..-  </span></div>
+                <div class="morse-item"><strong> V </strong><span class="morse-arrow"> = </span><span class="morse-code"> ...- </span></div>
+                <div class="morse-item"><strong> W </strong><span class="morse-arrow"> = </span><span class="morse-code"> .--  </span></div>
+                <div class="morse-item"><strong> X </strong><span class="morse-arrow"> = </span><span class="morse-code"> -..- </span></div>
+                <div class="morse-item"><strong> Y </strong><span class="morse-arrow"> = </span><span class="morse-code"> -.-- </span></div>
+                <div class="morse-item"><strong> Z </strong><span class="morse-arrow"> = </span><span class="morse-code"> --.. </span></div>
             </div>
         </div>
     </div>
-    
+
     <!-- Binary Code Reference -->
     <div id="binaryCheatSheet" class="cheat-sheet">
         <div class="cheat-sheet-content">
-            <span class="close-button" onclick="toggleCheatSheet('binaryCheatSheet')">&times;</span>
+            <span class="close-button" onclick="toggleCheatSheet('binaryCheatSheet')"> &times; </span>
             <div class="info-container">
-                <button class="info-button" onclick="toggleBinaryInfo(event)">ⓘ</button>
+                <button class="info-button" onclick="toggleBinaryInfo(event)"> ⓘ </button>
             </div>            
-            <h2>Binary Code</h2>
+            <h2> Binary Code </h2>
             <div class="binary-grid">
-                <div class="binary-item"><strong>A</strong><span class="binary-arrow">=</span><span class="binary-code">01100001</span></div>
-                <div class="binary-item"><strong>B</strong><span class="binary-arrow">=</span><span class="binary-code">01100010</span></div>
-                <div class="binary-item"><strong>C</strong><span class="binary-arrow">=</span><span class="binary-code">01100011</span></div>
-                <div class="binary-item"><strong>D</strong><span class="binary-arrow">=</span><span class="binary-code">01100100</span></div>
-                <div class="binary-item"><strong>E</strong><span class="binary-arrow">=</span><span class="binary-code">01100101</span></div>
-                <div class="binary-item"><strong>F</strong><span class="binary-arrow">=</span><span class="binary-code">01100110</span></div>
-                <div class="binary-item"><strong>G</strong><span class="binary-arrow">=</span><span class="binary-code">01100111</span></div>
-                <div class="binary-item"><strong>H</strong><span class="binary-arrow">=</span><span class="binary-code">01101000</span></div>
-                <div class="binary-item"><strong>I</strong><span class="binary-arrow">=</span><span class="binary-code">01101001</span></div>
-                <div class="binary-item"><strong>J</strong><span class="binary-arrow">=</span><span class="binary-code">01101010</span></div>
-                <div class="binary-item"><strong>K</strong><span class="binary-arrow">=</span><span class="binary-code">01101011</span></div>
-                <div class="binary-item"><strong>L</strong><span class="binary-arrow">=</span><span class="binary-code">01101100</span></div>
-                <div class="binary-item"><strong>M</strong><span class="binary-arrow">=</span><span class="binary-code">01101101</span></div>
-                <div class="binary-item"><strong>N</strong><span class="binary-arrow">=</span><span class="binary-code">01101110</span></div>
-                <div class="binary-item"><strong>O</strong><span class="binary-arrow">=</span><span class="binary-code">01101111</span></div>
-                <div class="binary-item"><strong>P</strong><span class="binary-arrow">=</span><span class="binary-code">01110000</span></div>
-                <div class="binary-item"><strong>Q</strong><span class="binary-arrow">=</span><span class="binary-code">01110001</span></div>
-                <div class="binary-item"><strong>R</strong><span class="binary-arrow">=</span><span class="binary-code">01110010</span></div>
-                <div class="binary-item"><strong>S</strong><span class="binary-arrow">=</span><span class="binary-code">01110011</span></div>
-                <div class="binary-item"><strong>T</strong><span class="binary-arrow">=</span><span class="binary-code">01110100</span></div>
-                <div class="binary-item"><strong>U</strong><span class="binary-arrow">=</span><span class="binary-code">01110101</span></div>
-                <div class="binary-item"><strong>V</strong><span class="binary-arrow">=</span><span class="binary-code">01110110</span></div>
-                <div class="binary-item"><strong>W</strong><span class="binary-arrow">=</span><span class="binary-code">01110111</span></div>
-                <div class="binary-item"><strong>X</strong><span class="binary-arrow">=</span><span class="binary-code">01111000</span></div>
-                <div class="binary-item"><strong>Y</strong><span class="binary-arrow">=</span><span class="binary-code">01111001</span></div>
-                <div class="binary-item"><strong>Z</strong><span class="binary-arrow">=</span><span class="binary-code">01111010</span></div>
+                <div class="binary-item"><strong> A </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100001 </span></div>
+                <div class="binary-item"><strong> B </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100010 </span></div>
+                <div class="binary-item"><strong> C </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100011 </span></div>
+                <div class="binary-item"><strong> D </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100100 </span></div>
+                <div class="binary-item"><strong> E </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100101 </span></div>
+                <div class="binary-item"><strong> F </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100110 </span></div>
+                <div class="binary-item"><strong> G </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01100111 </span></div>
+                <div class="binary-item"><strong> H </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101000 </span></div>
+                <div class="binary-item"><strong> I </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101001 </span></div>
+                <div class="binary-item"><strong> J </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101010 </span></div>
+                <div class="binary-item"><strong> K </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101011 </span></div>
+                <div class="binary-item"><strong> L </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101100 </span></div>
+                <div class="binary-item"><strong> M </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101101 </span></div>
+                <div class="binary-item"><strong> N </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101110 </span></div>
+                <div class="binary-item"><strong> O </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01101111 </span></div>
+                <div class="binary-item"><strong> P </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110000 </span></div>
+                <div class="binary-item"><strong> Q </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110001 </span></div>
+                <div class="binary-item"><strong> R </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110010 </span></div>
+                <div class="binary-item"><strong> S </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110011 </span></div>
+                <div class="binary-item"><strong> T </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110100 </span></div>
+                <div class="binary-item"><strong> U </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110101 </span></div>
+                <div class="binary-item"><strong> V </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110110 </span></div>
+                <div class="binary-item"><strong> W </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01110111 </span></div>
+                <div class="binary-item"><strong> X </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01111000 </span></div>
+                <div class="binary-item"><strong> Y </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01111001 </span></div>
+                <div class="binary-item"><strong> Z </strong><span class="binary-arrow"> = </span><span class="binary-code"> 01111010 </span></div>
             </div>
         </div>
     </div>
@@ -1208,61 +1410,72 @@
     <!-- Alphabet Reference -->
     <div id="alphabetCheatSheet" class="cheat-sheet">
         <div class="cheat-sheet-content">
-            <span class="close-button" onclick="toggleCheatSheet('alphabetCheatSheet')">&times;</span>
-            <h2>Alphabet Numbers</h2>
+            <span class="close-button" onclick="toggleCheatSheet('alphabetCheatSheet')"> &times; </span>
+            <h2> Alphabet Numbers </h2>
             <div class="alphabet-grid">
-                <div class="alphabet-item"><strong>A</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">1</span></div>
-                <div class="alphabet-item"><strong>B</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">2</span></div>
-                <div class="alphabet-item"><strong>C</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">3</span></div>
-                <div class="alphabet-item"><strong>D</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">4</span></div>
-                <div class="alphabet-item"><strong>E</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">5</span></div>
-                <div class="alphabet-item"><strong>F</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">6</span></div>
-                <div class="alphabet-item"><strong>G</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">7</span></div>
-                <div class="alphabet-item"><strong>H</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">8</span></div>
-                <div class="alphabet-item"><strong>I</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">9</span></div>
-                <div class="alphabet-item"><strong>J</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">10</span></div>
-                <div class="alphabet-item"><strong>K</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">11</span></div>
-                <div class="alphabet-item"><strong>L</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">12</span></div>
-                <div class="alphabet-item"><strong>M</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">13</span></div>
-                <div class="alphabet-item"><strong>N</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">14</span></div>
-                <div class="alphabet-item"><strong>O</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">15</span></div>
-                <div class="alphabet-item"><strong>P</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">16</span></div>
-                <div class="alphabet-item"><strong>Q</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">17</span></div>
-                <div class="alphabet-item"><strong>R</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">18</span></div>
-                <div class="alphabet-item"><strong>S</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">19</span></div>
-                <div class="alphabet-item"><strong>T</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">20</span></div>
-                <div class="alphabet-item"><strong>U</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">21</span></div>
-                <div class="alphabet-item"><strong>V</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">22</span></div>
-                <div class="alphabet-item"><strong>W</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">23</span></div>
-                <div class="alphabet-item"><strong>X</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">24</span></div>
-                <div class="alphabet-item"><strong>Y</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">25</span></div>
-                <div class="alphabet-item"><strong>Z</strong><span class="alphabet-arrow">=</span><span class="alphabet-code">26</span></div>
+                <div class="alphabet-item"><strong> A </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 1 </span></div>
+                <div class="alphabet-item"><strong> B </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 2 </span></div>
+                <div class="alphabet-item"><strong> C </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 3 </span></div>
+                <div class="alphabet-item"><strong> D </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 4 </span></div>
+                <div class="alphabet-item"><strong> E </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 5 </span></div>
+                <div class="alphabet-item"><strong> F </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 6 </span></div>
+                <div class="alphabet-item"><strong> G </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 7 </span></div>
+                <div class="alphabet-item"><strong> H </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 8 </span></div>
+                <div class="alphabet-item"><strong> I </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 9 </span></div>
+                <div class="alphabet-item"><strong> J </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 10 </span></div>
+                <div class="alphabet-item"><strong> K </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 11 </span></div>
+                <div class="alphabet-item"><strong> L </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 12 </span></div>
+                <div class="alphabet-item"><strong> M </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 13 </span></div>
+                <div class="alphabet-item"><strong> N </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 14 </span></div>
+                <div class="alphabet-item"><strong> O </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 15 </span></div>
+                <div class="alphabet-item"><strong> P </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 16 </span></div>
+                <div class="alphabet-item"><strong> Q </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 17 </span></div>
+                <div class="alphabet-item"><strong> R </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 18 </span></div>
+                <div class="alphabet-item"><strong> S </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 19 </span></div>
+                <div class="alphabet-item"><strong> T </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 20 </span></div>
+                <div class="alphabet-item"><strong> U </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 21 </span></div>
+                <div class="alphabet-item"><strong> V </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 22 </span></div>
+                <div class="alphabet-item"><strong> W </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 23 </span></div>
+                <div class="alphabet-item"><strong> X </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 24 </span></div>
+                <div class="alphabet-item"><strong> Y </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 25 </span></div>
+                <div class="alphabet-item"><strong> Z </strong><span class="alphabet-arrow"> = </span><span class="alphabet-code"> 26 </span></div>
             </div>
         </div>
     </div>
-     
+
+
 
 
 
     <!-- ===== TOOLTIPS & DIALOGS ===== -->
+
     <!-- Binary information tooltip that explains ASCII values -->
     <div id="standalone-binary-tooltip" class="standalone-tooltip">
-        Note: for simplicity, uppercase letters are shown here, but the binary values actually represent lowercase ASCII letters (97-122). The game accepts either case as correct answers.
-    </div>
+    For advanced users: The cheat sheet shows uppercase letters for simplicity, but the binary values listed correspond to lowercase ASCII letters (ranging from 97 to 122). The game will accept answers in either uppercase or lowercase form. </div>
 
-    <!-- Confirmation dialog for resetting progress -->
+    <!-- Confirmation dialog for Play Again Button -->
     <div id="confirmationDialog" class="cheat-sheet">
         <div class="cheat-sheet-content confirmation-content">
-            <h2>Reset Progress</h2>
-            <p>Are you sure you want to reset all progress?</p>
+            <h2> Play Again? </h2>
+            <p> Starting a new game will reset all your progress. </p>
             <div class="confirmation-buttons">
-                <button id="confirmReset" class="confirm-button">Reset Progress</button>
-                <button id="cancelReset" class="cancel-button">Cancel</button>
+                <button id="confirmReset" class="confirm-button"> Start New Game </button>
+                <button id="cancelReset" class="cancel-button"> Cancel </button>
             </div>
         </div>
     </div>
 
-
+    <!-- Confirmation dialog for Reset Progress Button -->
+    <div id="resetConfirmationDialog" class="cheat-sheet">
+        <div class="cheat-sheet-content confirmation-content">
+            <h2> Reset Progress? </h2>
+            <p> This will clear all your solved puzzles. </p>
+            <div class="confirmation-buttons">
+                <button id="confirmResetProgress" class="confirm-button"> Reset Progress </button>
+                <button id="cancelResetProgress" class="cancel-button"> Cancel </button>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -1283,31 +1496,32 @@
     <script>
 
         /* ===== CONSTANTS & VARIABLES ===== */
+
         // Game state variables
         let currentPuzzle = 1;
         let solvedPuzzles = new Set();
         let navigationTimeout = null;
-        let hasScrolledOnPageLoad = false;
-        let scrollLock = false;
         
         // Puzzle answers
         const answers = {
-            1: "HELLO",
-            2: "CODE",
-            3: "SECRET",
-            4: "PUZZLE",
-            5: "DREAM",
-            6: "Q",
-            7: "SIMPLE",
-            8: "LOCK",
-            9: "77",
-            10: "HAVE",
+            1: "DREAM",
+            2: "HELLO",
+            3: "CODE",
+            4: "SIMPLE",
+            5: "Q",
+            6: "DECIPHER",
+            7: "LOCKER",
+            8: "77",
+            9: "PUZZLE",
+            10: "SECRET"
         };
-    
+
+
 
 
 
         /* ===== CORE GAME FUNCTIONS ===== */
+
         /**
          * Checks the user's answer against the correct answer
          * @param {number} puzzleNumber - The puzzle number to check
@@ -1332,7 +1546,7 @@
                 }
                                 
                 // Determine which fireworks display to show
-                if (puzzleNumber === totalPuzzles && solvedPuzzles.size === totalPuzzles) {
+                if (solvedPuzzles.size === totalPuzzles) {
                     // Grand finale fireworks for completing all puzzles
                     createGrandFinaleFireworks();
                     
@@ -1341,11 +1555,12 @@
                     successMessage.textContent = "Congratulations! You've completed all puzzles!";
                     successMessage.style.display = 'block';
                     
+                        // Show end game screen after delay
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                        // Reset text back to original
                         successMessage.textContent = "Great job! Puzzle solved!";
-                    }, 3500);
+                        showEndGameScreen();
+                    }, 6000);
                 } else {
                     // Regular fireworks and success message
                     createFireworks();
@@ -1361,13 +1576,15 @@
                             navigatePuzzle(1);
                         }
                         navigationTimeout = null;
-                    }, 1800);
+                    }, 5000);
                 }
             } else {
                 // Handle incorrect answer
                 showErrorMessage();
             }
         }
+
+
 
         /**
          * Update the UI to show solved status for a puzzle
@@ -1406,7 +1623,9 @@
 
 
 
+
         /* ===== NAVIGATION FUNCTIONS ===== */
+
         /**
          * Navigate to the previous or next puzzle
          * @param {number} direction - Direction to navigate (-1 for prev, 1 for next)
@@ -1418,17 +1637,20 @@
                 navigationTimeout = null;
             }
             
-            const totalPuzzles = Object.keys(answers).length;
-            const newPuzzleNumber = currentPuzzle + direction;
+            const newPuzzleNum = currentPuzzle + direction;
             
-            if (newPuzzleNumber >= 1 && newPuzzleNumber <= totalPuzzles) {
+            if (newPuzzleNum >= 1 && newPuzzleNum <= 10) {
+                // Hide current puzzle
                 document.querySelector(`#puzzle${currentPuzzle}`).classList.remove("active");
-                currentPuzzle = newPuzzleNumber;
+                // Update current puzzle
+                currentPuzzle = newPuzzleNum;
+                // Show new puzzle
                 document.querySelector(`#puzzle${currentPuzzle}`).classList.add("active");
+                // Update display number
                 document.getElementById("currentPuzzle").textContent = currentPuzzle;
                 
                 saveCurrentPuzzle();
-    
+
                 // Reset all hints when navigating
                 document.querySelectorAll('.hint').forEach(hint => {
                     hint.style.display = 'none';
@@ -1445,12 +1667,14 @@
                 // Show "Solved!" message if puzzle is already solved
                 updateSolvedStatus(currentPuzzle);
             }
-        }
-    
+        }    
+
+
 
 
 
         /* ===== USER INTERFACE FUNCTIONS ===== */
+
         /**
          * Shows the success message for a short time
          */
@@ -1460,9 +1684,11 @@
             
             setTimeout(() => {
                 successMessage.style.display = 'none';
-            }, 1800);
+            }, 5000);
         }
         
+
+
         /**
          * Shows the error message for a short time
          */
@@ -1475,6 +1701,8 @@
             }, 1800);
         }
         
+
+
         /**
          * Toggles the menu visibility and ensures proper transparency
          */
@@ -1497,6 +1725,8 @@
             }, 100);
         }
 
+
+
         /**
          * Applies the correct transparency to the menu button
          */
@@ -1509,6 +1739,8 @@
             button.style.backgroundColor = 'rgba(76, 175, 80, 0.9)';
         }
 
+
+
         /**
          * Shows the hint for a specific puzzle
          * @param {number} puzzleNumber - The puzzle number to show hint for
@@ -1517,7 +1749,9 @@
             document.getElementById(`hint${puzzleNumber}`).style.display = 'block';
             document.querySelector(`#puzzle${puzzleNumber} .hint-block`).style.display = 'none';
         }
-            
+           
+        
+
         /**
          * Toggles dark mode and saves the preference
          */
@@ -1536,18 +1770,63 @@
             darkModeButton.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
         }
     
+
+
         /**
          * Shows the reset progress confirmation dialog
          */
         function resetProgress() {
-            // Show the confirmation dialog
-            document.getElementById('confirmationDialog').style.display = 'block';
+            // Show the new reset confirmation dialog
+            document.getElementById('resetConfirmationDialog').style.display = 'block';
             
             // Set up event listeners for the buttons
-            document.getElementById('confirmReset').onclick = confirmReset;
-            document.getElementById('cancelReset').onclick = cancelReset;
+            document.getElementById('confirmResetProgress').onclick = confirmResetProgress;
+            document.getElementById('cancelResetProgress').onclick = cancelResetProgress;
         }
-        
+
+
+
+        /**
+         * Handles reset progress confirmation
+         */
+        function confirmResetProgress() {
+            // Hide the dialog
+            document.getElementById('resetConfirmationDialog').style.display = 'none';
+            
+            // Reset progress
+            localStorage.removeItem('solvedPuzzles');
+            
+            // Reset progress
+            solvedPuzzles = new Set();
+            document.getElementById("solvedCount").textContent = "0";
+            
+            // Clear all solved indicators
+            document.querySelectorAll('.solved-indicator').forEach(indicator => {
+                indicator.style.display = 'none';
+            });
+            
+            // Navigate back to puzzle 1
+            document.querySelector(`#puzzle${currentPuzzle}`).classList.remove("active");
+            currentPuzzle = 1;
+            document.querySelector(`#puzzle${currentPuzzle}`).classList.add("active");
+            document.getElementById("currentPuzzle").textContent = "1";
+            
+            // Save the current puzzle
+            localStorage.removeItem('currentPuzzle');
+        }
+
+
+
+        /**
+         * Handles reset progress cancellation
+         */
+        function cancelResetProgress() {
+            // Just hide the dialog
+            document.getElementById('resetConfirmationDialog').style.display = 'none';
+        }
+
+
+
         /**
          * Handles reset confirmation
          */
@@ -1574,6 +1853,8 @@
             });
         }
 
+
+
         /**
          * Handles reset cancellation
          */
@@ -1581,6 +1862,88 @@
             // Just hide the dialog
             document.getElementById('confirmationDialog').style.display = 'none';
         }
+
+
+
+        /**
+         * Shows the end game screen when all puzzles are completed
+         */
+        function showEndGameScreen() {
+            document.getElementById('gameContent').style.display = 'none';
+            document.getElementById('endGameScreen').style.display = 'flex';
+        }
+
+
+
+        /**
+         * Goes back to puzzles from the end game screen
+         */
+        function backToPuzzles() {
+            document.getElementById('endGameScreen').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+        }
+
+
+
+        /**
+         * Resets progress and starts the game fresh
+         */
+        function resetAndRestart() {
+            // Reset progress
+            localStorage.removeItem('solvedPuzzles');
+            localStorage.removeItem('currentPuzzle');
+            
+            solvedPuzzles = new Set();
+            currentPuzzle = 1;
+            
+            // Update UI elements
+            document.getElementById("solvedCount").textContent = "0";
+            document.getElementById("currentPuzzle").textContent = "1";
+            
+            // Reset puzzle display
+            document.querySelectorAll('.puzzle').forEach(puzzle => {
+                puzzle.classList.remove('active');
+            });
+            document.getElementById('puzzle1').classList.add('active');
+            
+            // Clear solved indicators
+            document.querySelectorAll('.solved-indicator').forEach(indicator => {
+                indicator.style.display = 'none';
+            });
+            
+            // Hide end screen and show game content
+            document.getElementById('endGameScreen').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+        }
+
+
+
+        /**
+         * Shows reset progress dialog from the end game screen
+         */
+        function resetProgressFromEndScreen() {
+            // Show the confirmation dialog
+            document.getElementById('confirmationDialog').style.display = 'block';
+            
+            // Set up event listeners for the buttons
+            document.getElementById('confirmReset').onclick = function() {
+                document.getElementById('confirmationDialog').style.display = 'none';
+                resetAndRestart();
+            };
+            document.getElementById('cancelReset').onclick = cancelReset;
+        }
+
+
+
+        /**
+         * Toggles the credits section visibility
+         */
+        function toggleCredits() {
+            const credits = document.getElementById('credits');
+            credits.style.display = credits.style.display === 'block' ? 'none' : 'block';
+        }
+
+
 
         /**
          * Starts the game by fading out the menu and showing game content
@@ -1603,11 +1966,16 @@
             sessionStorage.setItem('gameStarted', 'true');
         }
         
+
+
         // Store a reference to the current handler
         let currentTooltipHandler = null;
 
+
+
         /**
          * Toggles the binary information tooltip
+         * @param {Event} event - The click event that triggered the tooltip
          */
         function toggleBinaryInfo(event) {
             if (!event) return; // Safety check
@@ -1646,6 +2014,8 @@
             }
         }
 
+
+
         /**
          * Toggles the visibility of a cheat sheet
          * @param {string} cheatSheetId - The ID of the cheat sheet to toggle
@@ -1668,7 +2038,9 @@
 
 
 
+
         /* ===== PERSISTENCE FUNCTIONS ===== */
+
         /**
          * Saves the solved puzzles to localStorage
          */
@@ -1676,6 +2048,8 @@
             localStorage.setItem('solvedPuzzles', JSON.stringify([...solvedPuzzles]));
         }
         
+
+
         /**
          * Saves the current puzzle number to localStorage
          */
@@ -1686,7 +2060,9 @@
 
 
 
+
         /* ===== VISUAL EFFECTS FUNCTIONS ===== */
+
         /**
          * Creates fireworks animation for solving a puzzle
          */
@@ -1695,14 +2071,14 @@
             container.innerHTML = ''; // Clear previous fireworks
             
             // Create multiple fireworks
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
                     const firework = document.createElement('div');
                     firework.className = 'firework';
                     
                     // Random position around success message
-                    const x = 50 + (Math.random() - 0.5) * 80; // Between 10% and 90% of width
-                    const y = 50 + (Math.random() - 0.5) * 80; // Between 10% and 90% of height
+                    const x = 50 + (Math.random() - 0.5) * 80;
+                    const y = 50 + (Math.random() - 0.5) * 80;
                     
                     // Random color
                     const hue = Math.floor(Math.random() * 360);
@@ -1718,60 +2094,76 @@
                         if (firework.parentNode === container) {
                             container.removeChild(firework);
                         }
-                    }, 900);
-                }, i * 90); // Stagger the fireworks
+                    }, 5000);
+                }, i * 90);
             }
         }
     
+
+
         /**
-         * Creates a more intense fireworks display for completing all puzzles
+         * Creates an extravagant fireworks display for completing all puzzles
          */
         function createGrandFinaleFireworks() {
             const container = document.getElementById('fireworksContainer');
             container.innerHTML = ''; // Clear previous fireworks
             
-            // Create more intense fireworks for finale
-            for (let i = 0; i < 60; i++) { // More fireworks for finale
+            // Create a spectacular array of fireworks for the grand finale
+            for (let i = 0; i < 100; i++) {
                 setTimeout(() => {
                     const firework = document.createElement('div');
                     firework.className = 'firework';
                     
                     // Random position across entire screen
-                    const x = Math.random() * 100;
+                    const x = Math.random() * 100; 
                     const y = Math.random() * 100;
                     
-                    // Random color
+                    // Random color with emphasis on celebratory colors
                     const hue = Math.floor(Math.random() * 360);
+
                     firework.style.left = `${x}%`;
                     firework.style.top = `${y}%`;
                     
-                    // Make some fireworks bigger
-                    if (i % 3 === 0) {
+                    // Create three sizes of fireworks for visual variety
+                    if (i % 20 === 0) {
+                        // Super fireworks (5% chance)
+                        firework.style.width = '12px';
+                        firework.style.height = '12px';
+                        firework.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+                        firework.style.boxShadow = `0 0 20px 12px hsla(${hue}, 100%, 70%, 0.9)`;
+                    } else if (i % 3 === 0) {
+                        // Large fireworks (33% chance)
                         firework.style.width = '8px';
                         firework.style.height = '8px';
                         firework.style.backgroundColor = `hsl(${hue}, 100%, 65%)`;
                         firework.style.boxShadow = `0 0 15px 8px hsla(${hue}, 100%, 65%, 0.8)`;
                     } else {
+                        // Regular fireworks
                         firework.style.backgroundColor = `hsl(${hue}, 100%, 65%)`;
                         firework.style.boxShadow = `0 0 10px 5px hsla(${hue}, 100%, 65%, 0.8)`;
                     }
                     
                     container.appendChild(firework);
                     
+                    // Longer animation time for super fireworks
+                    const duration = i % 20 === 0 ? 5000 : 4500;
+                    
                     // Remove firework after animation completes
                     setTimeout(() => {
                         if (firework.parentNode === container) {
                             container.removeChild(firework);
                         }
-                    }, 1200);
-                }, i * 80); // Faster stagger for finale
+                    }, duration);
+                }, i * 55);
             }
         }
     
 
 
     
+
         /* ===== EVENT LISTENERS ===== */
+
         // Add event listener for Enter key on answer inputs
         document.querySelectorAll('input[id^="answer"]').forEach(input => {
             input.addEventListener('keypress', function(event) {
@@ -1783,6 +2175,8 @@
             });
         });
     
+
+
         // Add click event listeners for cheat sheets
         document.querySelectorAll('.cheat-sheet').forEach(sheet => {
             sheet.addEventListener('click', function(event) {
@@ -1793,6 +2187,8 @@
             });
         });
     
+
+
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             const menu = document.getElementById('menu');
@@ -1806,13 +2202,21 @@
             }
         });
     
+
+
         // Close menus and cheat sheets when pressing Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                // Close the confirmation dialog if open
+                // Close both confirmation dialogs if open
                 const confirmationDialog = document.getElementById('confirmationDialog');
+                const resetConfirmationDialog = document.getElementById('resetConfirmationDialog');
+                
                 if (confirmationDialog && confirmationDialog.style.display === 'block') {
                     confirmationDialog.style.display = 'none';
+                }
+                
+                if (resetConfirmationDialog && resetConfirmationDialog.style.display === 'block') {
+                    resetConfirmationDialog.style.display = 'none';
                 }
                 
                 // Close the menu if open
@@ -1828,8 +2232,10 @@
                     }
                 });
             }
-        });    
-        
+        });
+
+
+
         // Focus on current puzzle answer input when Tab pressed
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Tab' && document.activeElement.tagName !== 'INPUT') {
@@ -1837,6 +2243,8 @@
                 document.getElementById(`answer${currentPuzzle}`).focus();
             }
         });
+
+
 
         // Handle browser back button
         window.addEventListener('popstate', function() {
@@ -1850,14 +2258,19 @@
             }, 100);
         });
 
+
+
         document.addEventListener('visibilitychange', function() {
             // Do nothing - completely disable automatic scrolling when tab becomes visible
             // This prevents unwanted scrolling when returning to the tab
         });
 
 
-           
+
+
+
         /* ===== INITIALIZATION ===== */
+
         document.addEventListener('DOMContentLoaded', function() {
             // Set initial puzzle counter
             document.getElementById("currentPuzzle").textContent = currentPuzzle;
@@ -1916,6 +2329,14 @@
                 updateSolvedStatus(currentPuzzle);
             }
 
+            // Initialize new players with first puzzle
+            if (!savedCurrentPuzzle) {
+                document.querySelector(`#puzzle${currentPuzzle}`).classList.remove("active");
+                currentPuzzle = 1;
+                document.querySelector(`#puzzle${currentPuzzle}`).classList.add("active");
+                document.getElementById("currentPuzzle").textContent = "1";
+            }
+
             // Add aria labels for accessibility
             document.querySelectorAll('.puzzle').forEach(puzzle => {
                 const puzzleId = puzzle.id.replace('puzzle', '');
@@ -1926,26 +2347,11 @@
                 }
             });
 
-            // Mobile keyboard handling
-            document.querySelectorAll('input[id^="answer"]').forEach(input => {
-                // When an input loses focus (keyboard dismissed)
-                input.addEventListener('blur', function() {
-                    // Only trigger on mobile devices
-                });
-            });
-
-        });
-
-        // Prevent automatic scrolling when page reloads
-        window.addEventListener('load', function() {
-            if (!hasScrolledOnPageLoad) {
-                hasScrolledOnPageLoad = true;
-            }
         });
 
     </script>
 
-    <!-- Version 0.9.1 -->
+    <!-- Version 1.0.0 -->
 
 </body>
 </html>
